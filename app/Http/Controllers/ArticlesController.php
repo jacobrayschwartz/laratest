@@ -6,12 +6,11 @@ use App\Article;
 use Carbon\Carbon;
 use Request;
 
-use App\Http\Requests;
 
 class ArticlesController extends Controller
 {
     public function index(){
-        $articles = Article::latest('published_at')->get();
+        $articles = Article::latest('published_at')->published()->get();
 
         return view('articles.index', compact('articles'));
     }
@@ -28,13 +27,9 @@ class ArticlesController extends Controller
     }
 
     public function store(){
-        $input = Request::all();
-
-        $article = new Article();
-        $article->title = $input['title'];
-        $article->body = $input['body'];
-        $article->published_at = Carbon::now();
-        $article->save();
+        //var_dump(Request::all());
+        //die();
+        Article::create(Request::all());
 
         return redirect('articles');
      }

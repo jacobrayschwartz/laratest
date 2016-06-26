@@ -10,4 +10,6 @@
             </div>
         </article>
 
+    <strong>Published At: {{$article->published_at->diffForHumans()}}</strong>
+
 @stop
