@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Http\Requests\CreateArticle;
 use Carbon\Carbon;
 use Request;
 
@@ -26,7 +27,7 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(){
+    public function store(CreateArticle $request ){
         //var_dump(Request::all());
         //die();
         Article::create(Request::all());
