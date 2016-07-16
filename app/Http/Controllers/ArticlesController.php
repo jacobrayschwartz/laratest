@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Requests\ArticleRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Request;
 
 
 class ArticlesController extends Controller
 {
     public function index(){
-        $articles = Article::latest('published_at')->published()->get();
+        $articles = Article::orderBy('published_at', 'desc')->published()->get();
 
         return view('articles.index', compact('articles'));
     }
@@ -30,7 +31,13 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request ){
         //var_dump(Request::all());
         //die();
-        Article::create(Request::all());
+
+        //Old article
+        //Article::create(Request::all());
+
+        //Automagically assigns userid in the article
+        $article = new Article($request->all());
+        Auth::user()->articles()->save($article);
 
         return redirect('articles');
      }
