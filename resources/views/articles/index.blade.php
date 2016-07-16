@@ -7,7 +7,7 @@
     @foreach($articles as $article)
          <article>
               <h2>
-                  <a href="{{action('ArticlesController@show', ['id' => $article->id])}}">{{$article->title}}</a>
+                  <a href="{{action('ArticlesController@show', ['id' => $article->id])}}">{{$article->title}}</a> - <em>{{$article->user->name}}</em>
               </h2>
              <div class="body">
                  {{$article->body}}
