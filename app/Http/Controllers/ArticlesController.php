@@ -11,6 +11,11 @@ use Request;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'index']);
+    }
+
     public function index(){
         $articles = Article::orderBy('published_at', 'desc')->published()->get();
 
